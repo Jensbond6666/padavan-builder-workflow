@@ -12,8 +12,183 @@ on:
         default: 'TL_C2-V1'
         type: choice
         options:
-          - TL_C2-V1
+          # 5K
+          - 5K-W20
+          # A5-V11
+          - A5-V11_16M
+          - A5-V11_4M
+          - A5-V11_8M
+          # ASUS
+          - RP-AC56
+          - RT-AC1200
+          - RT-AC1200GU
+          - RT-AC1200HP
+          - RT-AC51U
+          - RT-AC54U
+          - RT-N10C1
+          - RT-N11P
+          - RT-N11PB1
+          - RT-N12plus
+          - RT-N13UB1
+          - RT-N14U
+          - RT-N56U
+          - RT-N56U-GE2
+          - RT-N56UB1
+          # ATEL
+          - ALR-U270
+          # BELKIN
+          - F9K1103
+          # DLINK
+          - DIR-300B1
+          - DIR-300B7
+          - DIR-320B1
+          - DIR-620A1
+          - DIR-620D1
+          - DIR-860L
+          - DIR-882
+          # GL
+          - GL-MT300A
+          - GL-MT300N
+          - GL-MT300NV2
+          # HIWIFI
           - HC5661A
+          # KROKS
+          - KNDRT31R26
+          - KNDRT31R3
+          # LINKSYS
+          - EA-8100
+          # MQMAKER
+          - MQ-WITI-256
+          - MQ-WITI-512
+          # NEWIFI
+          - NEWIFI-D1
+          - NEWIFI-D2
+          - NEWIFI-MINI
+          - NEWIFI-Y1S
+          # NEXX
+          - WT3020A
+          - WT3020H
+          - WT3020H16M
+          # PHICOMM
+          - 256PSG1218
+          - PSG1218
+          # SAMSUNG
+          - SWR1100
+          # SERCOMM
+          - RT-S1010
+          - SMARTBOX_SPI
+          - SMBXPRONAND
+          - SMBXTURBO
+          # SNR
+          - SNR-MD1
+          - SNR-ME1
+          - SNR-W4N-M
+          - SNR-W4N-M_USB
+          # TOTOLINK
+          - A3004NS
+          # TPLINK
+          - TL_C2-V1
+          - TL_C20-V1
+          - TL_C20-V1_16M
+          - TL_C20-V4
+          - TL_C20-V5
+          - TL_C5-V4
+          - TL_C50-V1
+          - TL_C50-V3
+          - TL_C50-V4
+          - TL_EC220_G5-V2
+          - TL_MR200-V1
+          - TL_MR3020-V3
+          - TL_MR3420-V5
+          - TL_WDR7300-V5
+          - TL_WR840N-V4
+          - TL_WR840N-V4_USB
+          - TL_WR840N-V5
+          - TL_WR840N-V5_RU
+          - TL_WR840N-V6
+          - TL_WR841N-V13
+          - TL_WR841N-V13_USB
+          - TL_WR841N-V14
+          - TL_WR841N-V14_8M
+          - TL_WR842N-V5
+          - TL_WR845N-V3
+          - TL_WR845N-V4
+          # TUOSHI
+          - TS7620N
+          # UBNT
+          - UBNT-ERX
+          # UNIELEC
+          - U7621-06
+          # WALL-AP
+          - WALL-AP
+          # XIAOMI-U-Boot
+          - MI-4A_100M
+          - MI-4C
+          - MI-MINI
+          - MI-R3Gv2
+          # XIAOMI
+          - MI-3
+          - MI-3C
+          - MI-3_SPI
+          - MI-4
+          - MI-MINI
+          - MI-NANO
+          - MI-R3G
+          - MI-R3G_SPI
+          - MI-R3PRO
+          - MI-R3P_SPI
+          - R2100
+          - RM-AC2100
+          # YOUHUA
+          - WR1200JS
+          # YOUKU
+          - YK-L1
+          - YK-L1C
+          # ZBT
+          - ZBT-WE1326
+          - ZBT-WE1626
+          - ZBT-WE826T2
+          - ZBT-WG3526-32
+          - ZBT-WG3526
+          - ZBT-WR8305RT
+          # ZTE
+          - ZTE_E8820S
+          # ZYXEL
+          - KN-4G3
+          - KN-4G3B
+          - KN-EXTRA
+          - KN-EXTRA2
+          - KN-GIGA3
+          - KN-LITE
+          - KN-LITE2
+          - KN-LITE3
+          - KN-LITE3B
+          - KN-OMNI
+          - KN-OMNI2
+          - KN-START2
+          - KN-ULTRA2
+          - KN-VIVA
+      
+      language_select:
+        description: "WebUI 語言設定 (Custom Language Selector)"
+        required: true
+        type: choice
+        default: 'English_Only'
+        options:
+          - English_Only
+          - CN (繁體中文)
+          - RU (Pусский)
+          - BR (Brazil)
+          - CZ (Česky)
+          - DA (Dansk)
+          - DE (Deutsch)
+          - ES (Español)
+          - FI (Finsk)
+          - FR (Français)
+          - NO (Norsk)
+          - PL (Polski)
+          - SV (Svensk)
+          - UK (Українська)
       
       nanoversion:
         description: "開啟極限瘦身 (Nano Optimization)"
@@ -21,7 +196,7 @@ on:
         default: true
 
       customization:
-        description: '自定義配置 JSON (Wi-Fi/密碼/IP)'
+        description: '自訂預設配置 JSON (Custom Default Configuration Wi-Fi/Passwords/IP)'
         required: true
         type: string
         default: '{"lanip":"192.168.0.1","signaccount":"admin","signpassword":"admin","wifi2gssid":"Padavan","wifi2gpsk":"1234567890","wifi5gssid":"Padavan-5G","wifi5gpsk":"1234567890"}'
@@ -1628,6 +1803,134 @@ jobs:
           
           echo "::endgroup::"
 
+      - name: 🕊️ Dave Täht Tribute & CAKE Patch
+        run: |
+          # =======================================================
+          # 🕊️ In Memory of Dave Täht
+          # -------------------------------------------------------
+          # 🇹🇼：靈魂永駐，精神長存
+          # 🇺🇸：May his soul find eternal peace, and his spirit live on forever.
+          #
+          # 📢 SLOGAN: When you miss Dave, modprobe sch_cake!
+          # =======================================================
+          
+          echo "::group::Applying CAKE to Kernel 3.4 Config"
+          
+          TARGET_BOARD="${{ inputs.target_select }}"
+          BOARDS_DIR="/opt/padavan-ng/trunk/configs/boards"
+          
+          # 3.4 內核的目錄結構較深 (例如 boards/ASUS/RT-N56U)，使用 find 尋找
+          echo "🔍 Searching for config file for board: $TARGET_BOARD..."
+          CONFIG_PATH=$(find "$BOARDS_DIR" -name "kernel-3.4.x.config" | grep "/$TARGET_BOARD/" | head -n 1)
+
+          if [ -z "$CONFIG_PATH" ]; then
+             echo "⚠️  Direct match not found, trying loose search..."
+             # 備用搜尋：有些機型目錄可能不完全等於 target_select (雖然很少見)
+             CONFIG_PATH=$(find "$BOARDS_DIR" -type f -name "kernel-3.4.x.config" | grep "$TARGET_BOARD" | head -n 1)
+          fi
+
+          if [ -f "$CONFIG_PATH" ]; then
+            echo "🎯 Found Config: $CONFIG_PATH"
+            
+            # 檢查是否已經存在 CAKE 設定
+            if grep -q "CONFIG_NET_SCH_CAKE" "$CONFIG_PATH"; then
+              echo "⚠️ CAKE module is already enabled in config."
+            else
+              echo "🔧 Injecting CAKE module..."
+              
+              # 在 FQ_CODEL 之後插入 CAKE
+              if grep -q "CONFIG_NET_SCH_FQ_CODEL=m" "$CONFIG_PATH"; then
+                sed -i '/CONFIG_NET_SCH_FQ_CODEL=m/a CONFIG_NET_SCH_CAKE=m' "$CONFIG_PATH"
+                echo "✅ Inserted CAKE after FQ_CODEL."
+              else
+                # 若找不到 FQ_CODEL，則附加在檔案末尾
+                echo "CONFIG_NET_SCH_CAKE=m" >> "$CONFIG_PATH"
+                echo "✅ Appended CAKE to end of file."
+              fi
+            fi
+            
+            # 再次驗證
+            if grep -q "CONFIG_NET_SCH_CAKE=m" "$CONFIG_PATH"; then
+               echo "🎉 CAKE Patch Applied Successfully!"
+               echo "📢 Reminder: When you miss Dave, modprobe sch_cake!"
+            else
+               echo "❌ Error: Failed to apply CAKE patch."
+               exit 1
+            fi
+          else
+            echo "❌ Config file not found for $TARGET_BOARD"
+            echo "   Please check if the board exists in trunk/configs/boards/"
+            exit 1
+          fi
+          echo "::endgroup::"
+            
+      - name: 🌐 Custom Language Selector
+        run: |
+          echo "::group::Setting up WebUI Language"
+          
+          # 1. 取得使用者選擇與目標機型
+          SELECTED_LANG_OPTION="${{ inputs.language_select }}"
+          TARGET_BOARD="${{ inputs.target_select }}"
+          TEMPLATES_DIR="/opt/padavan-ng/trunk/configs/templates"
+          
+          # 解析語言代碼 (例如 "CN (繁體中文)" -> "CN")
+          if [ "$SELECTED_LANG_OPTION" == "English_Only" ]; then
+            LANG_CODE="NONE"
+          else
+            LANG_CODE=$(echo "$SELECTED_LANG_OPTION" | cut -d' ' -f1)
+          fi
+          
+          echo "🎯 Target Board: $TARGET_BOARD"
+          echo "🗣️ Selected Language Code: $LANG_CODE"
+          
+          # 2. 搜尋該機型的 Template Config 檔案
+          # Padavan-ng 的結構通常是 trunk/configs/templates/xxx.config
+          # 有些在子目錄，所以用 find 搜尋
+          CONFIG_PATH=$(find "$TEMPLATES_DIR" -type f -name "*.config" | grep -i "$TARGET_BOARD.config" | head -n 1)
+          
+          if [ -z "$CONFIG_PATH" ]; then
+             echo "⚠️ Config not found via strict match, trying loose search..."
+             CONFIG_PATH=$(find "$TEMPLATES_DIR" -type f -name "*.config" | grep -i "$TARGET_BOARD" | head -n 1)
+          fi
+          
+          if [ -f "$CONFIG_PATH" ]; then
+            echo "📝 Modifying Config: $CONFIG_PATH"
+            
+            # 3. 第一步：先停用所有非英文語言 (Reset to English Only)
+            # 邏輯：找到所有開頭為 CONFIG_FIRMWARE_INCLUDE_LANG_ 且設為 y 的行，在前面加上 #
+            sed -i 's/^CONFIG_FIRMWARE_INCLUDE_LANG_.*=y/#&/' "$CONFIG_PATH"
+            echo "✅ All non-English languages disabled."
+            
+            # 4. 第二步：如果不是選 English_Only，則啟用指定語言
+            if [ "$LANG_CODE" != "NONE" ]; then
+              TARGET_LANG_CONFIG="CONFIG_FIRMWARE_INCLUDE_LANG_$LANG_CODE"
+              
+              # 檢查檔案內是否有該設定 (無論是被註解還是未註解)
+              if grep -q "$TARGET_LANG_CONFIG" "$CONFIG_PATH"; then
+                # 如果存在 (被註解掉的 #CONFIG...=y 或 CONFIG...=n)，用 sed 替換成啟用
+                # 這裡使用 regex 確保取代掉整行
+                sed -i "s/^.*$TARGET_LANG_CONFIG.*/$TARGET_LANG_CONFIG=y/" "$CONFIG_PATH"
+                echo "✅ Enabled language: $LANG_CODE"
+              else
+                # 如果完全不存在該行，則附加到檔案最後
+                echo "$TARGET_LANG_CONFIG=y" >> "$CONFIG_PATH"
+                echo "✅ Appended language config: $LANG_CODE"
+              fi
+            else
+              echo "ℹ️ Keeping English Only."
+            fi
+            
+            # 驗證結果 (列出目前啟用的語言)
+            echo "🔍 Current Enabled Languages in Config:"
+            grep "^CONFIG_FIRMWARE_INCLUDE_LANG_" "$CONFIG_PATH" || echo "(None - English Only)"
+            
+          else
+            echo "❌ Error: Could not find template config for $TARGET_BOARD"
+            exit 1
+          fi
+          echo "::endgroup::"
+      
+      
       # 8. 開始編譯
       - name: Build firmware
         run: |
