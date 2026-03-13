@@ -1,5 +1,5 @@
 name: Build firmware (Ultimate Fix - Early Size Check)
-FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   contents: write
 
