@@ -3,10 +3,6 @@ name: Build firmware (Ultimate Fix - Early Size Check)
 permissions:
   contents: write
 
-env:
-  # 在這裡插入這一行，消除 Node.js 20 的警告
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
-  
 on:
   workflow_dispatch:
     inputs:
@@ -212,6 +208,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # 在這裡插入這一行，消除 Node.js 20 的警告
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
     container: registry.gitlab.com/hadzhioglu/padavan-ng
     defaults: { run: { shell: bash } }
     
