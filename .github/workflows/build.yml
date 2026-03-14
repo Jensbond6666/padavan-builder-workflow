@@ -318,9 +318,9 @@ jobs:
             # 1. [體積優化] 強制開啟 Size Optimization
             sed -i "s/#CONFIG_CC_OPTIMIZE_FOR_SIZE=y/CONFIG_CC_OPTIMIZE_FOR_SIZE=y/g" "$FINAL_CONFIG"
          
-            # 2. [基礎切除] 停用 USB, 檔案系統, Swap, 媒體驅動
-            for feat in USB ANTFS FAT EXFAT EXT2 EXT3 EXT4 XFS HFS FUSE SWAP BACKPORTED; do
-              sed -i "s/CONFIG_FIRMWARE_ENABLE_${feat}=y/CONFIG_FIRMWARE_ENABLE_${feat}=n/gi" "$FINAL_CONFIG"
+            # 只保留不必要的檔案系統切除，恢復 USB 基礎功能
+            for feat in XFS HFS FUSE SWAP BACKPORTED; do
+               sed -i "s/CONFIG_FIRMWARE_ENABLE_${feat}=y/CONFIG_FIRMWARE_ENABLE_${feat}=n/gi" "$FINAL_CONFIG"
             done
          
             # 3. [語言包精準控制] 
@@ -334,8 +334,7 @@ jobs:
             # 目標：不管該選項原本是 =y, =m, 還是 # is not set，通通強制改為 =n
             echo "::group::Absolute Disable Modules"
             modules=(
-              CIFS NTFS_3G LPRD U2EC USBIP HDPARM PARTED SMBD WINS SMBD_SYSLOG TESTPARM 
-              FTPD FTPD_SSL NFSD NFSC
+              LPRD HDPARM PARTED WINS SMBD_SYSLOG TESTPARM NFSD NFSC
               UVC HID SERIAL AUDIO FIREFLY XUPNPD MINIDLNA FFMPEG_NEW 
               RPL2TP EAP_PEAP OPENVPN SSWAN WIREGUARD AMNEZIAWG ZEROTIER EOIP XFRM
               SHADOWSOCKS XRAY V2RAY TROJAN SSOBFS SINGBOX NAIVEPROXY
@@ -370,7 +369,8 @@ jobs:
 
           echo "::group::Core Modules Enforcement"
           # 5. 強制保留並開啟的核心模組
-          keep_modules=(OPENSSH SFTP TCPDUMP CURL HTTPS OPENSSL_EC OPENSSL_EXE SHORTCUT_FE QOS)
+          # 在 keep_modules 中追加 USB 相關支援
+          keep_modules=(OPENSSH SFTP TCPDUMP CURL HTTPS OPENSSL_EC OPENSSL_EXE SHORTCUT_FE QOS USB FAT EXFAT EXT4 NTFS_3G)
 
           for kmod in "${keep_modules[@]}"; do
             sed -i "/CONFIG_FIRMWARE_INCLUDE_${kmod}/d" "$FINAL_CONFIG"
