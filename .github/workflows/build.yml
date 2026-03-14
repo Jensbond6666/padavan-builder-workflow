@@ -344,7 +344,7 @@ jobs:
               ADBYBY DNSFORWARDER SMARTDNS ADGUARDHOME WPAD
               LRZSZ IPERF3 DUMP1090 RTL_SDR SOCAT MTR 
               IMQ IFB
-              ZRAM ADB LUA SQM ALDRIVER SCUTCLIENT GDUT_DRCOM DOGCOM MINIEAP 
+              ADB LUA SQM ALDRIVER SCUTCLIENT GDUT_DRCOM DOGCOM MINIEAP 
               NJIT_CLIENT SOFTETHERVPN_SERVER SOFTETHERVPN_CLIENT SOFTETHERVPN_CMD
               DROPBEAR DROPBEAR_FAST_CODE VLMCSD TTYD MSD_LITE
               DDNS_SSL
@@ -369,12 +369,13 @@ jobs:
 
           echo "::group::Core Modules Enforcement"
           # 5. 強制保留並開啟的核心模組
-          # 在 keep_modules 中追加 USB 相關支援
-          keep_modules=(OPENSSH SFTP TCPDUMP CURL HTTPS OPENSSL_EC OPENSSL_EXE SHORTCUT_FE QOS USB FAT EXFAT EXT4 NTFS_3G)
+          # 加入 USB, FAT, EXFAT, EXT4, 以及自動掛載工具 Automount
+          keep_modules=(OPENSSH SFTP TCPDUMP CURL HTTPS OPENSSL_EC OPENSSL_EXE SHORTCUT_FE QOS USB FAT EXFAT EXT4 AUTOMOUNT)
 
           for kmod in "${keep_modules[@]}"; do
             sed -i "/CONFIG_FIRMWARE_INCLUDE_${kmod}/d" "$FINAL_CONFIG"
             echo "CONFIG_FIRMWARE_INCLUDE_${kmod}=y" >> "$FINAL_CONFIG"
+            echo "CONFIG_FIRMWARE_INCLUDE_OPTWARE=y" >> "$FINAL_CONFIG"
           done
           echo "::endgroup::"
 
